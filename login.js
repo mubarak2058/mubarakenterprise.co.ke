@@ -1,0 +1,1 @@
+document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();if(username.value==='admin'&&password.value==='Mubarak2026'){localStorage.setItem('adminLoggedIn','true');location='admin-dashboard.html';}else{message.textContent='Invalid login';}});
