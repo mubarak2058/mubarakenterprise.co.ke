@@ -1,4 +1,7 @@
-# mubarakenterprise.co.ke
+index.html
+style.css
+script.js
+assets/# mubarakenterprise.co.ke
 A business account 
 <!DOCTYPE html>
 <html>
