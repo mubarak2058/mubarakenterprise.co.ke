@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise POS</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+}
+
+.header{
+    background:#0b7a0b;
+    color:white;
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.sidebar{
+    position:fixed;
+    top:60px;
+    left:0;
+    width:230px;
+    height:100%;
+    background:#1f2937;
+    color:white;
+    padding-top:20px;
+}
+
+.sidebar h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 20px;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    cursor:pointer;
+}
+
+.sidebar ul li:hover{
+    background:#0b7a0b;
+}
+
+.main{
+    margin-left:230px;
+    padding:20px;
+}
+
+.top-search{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.top-search input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ddd;
+    border-radius:6px;
+}
+
+.pos-container{
+    display:grid;
+    grid-template-columns:40% 60%;
+    gap:20px;
+}
+
+.cart{
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.cart h3{
+    margin-bottom:15px;
+}
+
+.cart table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.cart th,
+.cart td{
+    padding:10px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+.total-box{
+    margin-top:20px;
+    padding:15px;
+    background:#f8fafc;
+    border-radius:8px;
+}
+
+.total-box h2{
+    color:#0b7a0b;
+}
+
+.products{
+    background:white;
+    border-radius:10px;
+    padding:15px;
+    box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.categories{
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+    flex-wrap:wrap;
+}
+
+.categories button{
+    padding:10px 15px;
+    border:none;
+    border-radius:6px;
+    background:#0b7a0b;
+    color:white;
+    cursor:pointer;
+}
+
+.product-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:15px;
+}
+
+.product{
+    background:#f9fafb;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:15px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.product:hover{
+    transform:scale(1.03);
+}
+
+.product h4{
+    margin-bottom:10px;
+}
+
+.product p{
+    color:#0b7a0b;
+    font-weight:bold;
+}
+
+.footer-actions{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.footer-actions button{
+    padding:12px 20px;
+    border:none;
+    border-radius:6px;
+    color:white;
+    cursor:pointer;
+}
+
+.mpesa{
+    background:#16a34a;
+}
+
+.pay{
+    background:#2563eb;
+}
+
+.cancel{
+    background:#dc2626;
+}
+
+.suspend{
+    background:#f59e0b;
+}
+
+.customer-box{
+    margin-top:15px;
+}
+
+.customer-box select{
+    width:100%;
+    padding:10px;
+}
+
+@media(max-width:900px){
+    .sidebar{
+        display:none;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .pos-container{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <h2>Mubarak Enterprise POS</h2>
+    <div>
+        Branch: Main Store |
+        <span id="date"></span>
+    </div>
+</div>
+
+<div class="sidebar">
+    <h2>MENU</h2>
+    <ul>
+        <li>Dashboard</li>
+        <li>POS</li>
+        <li>Inventory</li>
+        <li>Customers</li>
+        <li>Savings</li>
+        <li>Reports</li>
+        <li>Users</li>
+        <li>Settings</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <div class="top-search">
+        <input type="text" placeholder="Search Product / Barcode / SKU">
+    </div>
+
+    <div class="pos-container">
+
+        <div class="cart">
+
+            <h3>Sales Cart</h3>
+
+            <table>
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                </tr>
+                </thead>
+
+                <tbody id="cartItems">
+                </tbody>
+            </table>
+
+            <div class="customer-box">
+                <select>
+                    <option>Select Customer</option>
+                    <option>Walk In Customer</option>
+                    <option>Ahmed Ali</option>
+                    <option>Fatuma Hassan</option>
+                </select>
+            </div>
+
+            <div class="total-box">
+                <h2>KES <span id="total">0</span></h2>
+            </div>
+
+            <div class="footer-actions">
+                <button class="suspend">Suspend</button>
+                <button class="mpesa">M-Pesa</button>
+                <button class="pay">Checkout</button>
+                <button class="cancel">Cancel</button>
+            </div>
+
+        </div>
+
+        <div class="products">
+
+            <div class="categories">
+                <button>All</button>
+                <button>Groceries</button>
+                <button>Drinks</button>
+                <button>Electronics</button>
+                <button>Stationery</button>
+            </div>
+
+            <div class="product-grid">
+
+                <div class="product" onclick="addProduct('Sugar 2kg',250)">
+                    <h4>Sugar 2kg</h4>
+                    <p>KES 250</p>
+                </div>
+
+                <div class="product" onclick="addProduct('Milk 500ml',70)">
+                    <h4>Milk 500ml</h4>
+                    <p>KES 70</p>
+                </div>
+
+                <div class="product" onclick="addProduct('Bread',60)">
+                    <h4>Bread</h4>
+                    <p>KES 60</p>
+                </div>
+
+                <div class="product" onclick="addProduct('Cooking Oil',350)">
+                    <h4>Cooking Oil</h4>
+                    <p>KES 350</p>
+                </div>
+
+                <div class="product" onclick="addProduct('Rice 1kg',180)">
+                    <h4>Rice 1kg</h4>
+                    <p>KES 180</p>
+                </div>
+
+                <div class="product" onclick="addProduct('Soap',120)">
+                    <h4>Soap</h4>
+                    <p>KES 120</p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+document.getElementById("date").innerHTML =
+new Date().toLocaleString();
+
+let total = 0;
+
+function addProduct(name, price){
+    const row = `<tr><td>${name}</td><td>1</td><td>${price}</td></tr>`;
+    document.getElementById("cartItems").innerHTML += row;
+    total += price;
+    document.getElementById("total").innerText = total;
+}
+</script>
+
+</body>
+</html>
