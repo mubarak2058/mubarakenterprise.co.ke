@@ -373,5 +373,11 @@ document.getElementById("total").innerHTML="0";
 }
 </script>
 
-</body>
+</body><div style="width:220px;height:100vh;background:#1f2937;color:white;padding:20px;position:fixed;left:0;top:0;">
+<h2>Mubarak POS</h2>
+<p><a href="pos.html" style="color:white;">POS</a></p>
+<p><a href="inventory.html" style="color:white;">Inventory</a></p>
+<p><a href="customers.html" style="color:white;">Customers</a></p>
+<p><a href="reports.html" style="color:white;">Reports</a></p>
+</div>
 </html>
