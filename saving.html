@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - Savings</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+h2{
+margin-bottom:15px;
+color:#0b7a0b;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+background:#0b7a0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#086108;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table th,
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+table th{
+background:#0b7a0b;
+color:white;
+}
+
+.total{
+font-size:24px;
+font-weight:bold;
+color:#0b7a0b;
+margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Mubarak Enterprise Savings Management</h1>
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>Add Savings</h2>
+
+<input type="text" id="member" placeholder="Member Name">
+
+<input type="number" id="amount" placeholder="Amount Saved">
+
+<button onclick="addSaving()">Save Record</button>
+</div>
+
+<div class="card">
+<h2>Savings Records</h2>
+
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Amount (KES)</th>
+</tr>
+</thead>
+
+<tbody id="records">
+</tbody>
+
+</table>
+
+<div class="total">
+Total Savings: KES <span id="total">0</span>
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let total = 0;
+
+function addSaving(){
+
+const member =
+document.getElementById("member").value;
+
+const amount =
+parseFloat(document.getElementById("amount").value);
+
+if(member === "" || isNaN(amount)){
+alert("Enter member name and amount");
+return;
+}
+
+const row = `
+<tr>
+<td>${member}</td>
+<td>${amount}</td>
+</tr>
+`;
+
+document.getElementById("records").innerHTML += row;
+
+total += amount;
+
+document.getElementById("total").innerText = total;
+
+document.getElementById("member").value = "";
+document.getElementById("amount").value = "";
+
+}
+
+</script>
+
+</body>
+</html>
