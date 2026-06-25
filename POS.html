@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise POS</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:60px;
+width:240px;
+height:100vh;
+background:#1f2937;
+color:white;
+}
+
+.sidebar h2{
+padding:20px;
+text-align:center;
+border-bottom:1px solid #374151;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar ul li{
+padding:18px 20px;
+border-bottom:1px solid #374151;
+cursor:pointer;
+}
+
+.sidebar ul li:hover{
+background:#374151;
+}
+
+.sidebar ul li a{
+color:white;
+text-decoration:none;
+display:block;
+}
+
+.main{
+margin-left:240px;
+padding:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.card h3{
+color:#666;
+margin-bottom:10px;
+}
+
+.card p{
+font-size:24px;
+font-weight:bold;
+color:#0b7a0b;
+}
+
+.search{
+background:white;
+padding:15px;
+border-radius:10px;
+margin-bottom:20px;
+box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.search input{
+width:100%;
+padding:12px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.pos{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.panel{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.product{
+display:flex;
+justify-content:space-between;
+padding:12px;
+margin-bottom:10px;
+border:1px solid #eee;
+border-radius:6px;
+cursor:pointer;
+}
+
+.product:hover{
+background:#f0fdf4;
+}
+
+button{
+padding:12px 18px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+color:white;
+margin:5px;
+}
+
+.green{background:#16a34a;}
+.blue{background:#2563eb;}
+.red{background:#dc2626;}
+.orange{background:#f59e0b;}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table th,table td{
+border-bottom:1px solid #ddd;
+padding:10px;
+text-align:left;
+}
+
+.total{
+font-size:28px;
+font-weight:bold;
+color:#0b7a0b;
+margin-top:15px;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.main{
+margin-left:0;
+}
+
+.pos{
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h2>Mubarak Enterprise POS</h2>
+<div id="date"></div>
+</div>
+
+<div class="sidebar">
+<h2>MENU</h2>
+<ul>
+<li><a href="index.html">Dashboard</a></li>
+<li><a href="pos.html">POS</a></li>
+<li><a href="inventory.html">Inventory</a></li>
+<li><a href="customers.html">Customers</a></li>
+<li><a href="savings.html">Savings</a></li>
+<li><a href="reports.html">Reports</a></li>
+<li><a href="users.html">Users</a></li>
+<li><a href="settings.html">Settings</a></li>
+</ul>
+</div>
+
+<div class="main">
+
+<div class="cards">
+<div class="card">
+<h3>Today's Sales</h3>
+<p>KES 0</p>
+</div>
+
+<div class="card">
+<h3>Products</h3>
+<p>6</p>
+</div>
+
+<div class="card">
+<h3>Customers</h3>
+<p>0</p>
+</div>
+
+<div class="card">
+<h3>Inventory</h3>
+<p>100%</p>
+</div>
+</div>
+
+<div class="search">
+<input type="text" placeholder="Search Product / Barcode">
+</div>
+
+<div class="pos">
+
+<div class="panel">
+
+<h3>Sales Cart</h3>
+
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody id="cart"></tbody>
+</table>
+
+<div class="total">
+KES <span id="total">0</span>
+</div>
+
+<button class="orange">Suspend</button>
+<button class="green">M-Pesa</button>
+<button class="blue">Checkout</button>
+<button class="red" onclick="clearCart()">Cancel</button>
+
+</div>
+
+<div class="panel">
+
+<h3>Products</h3>
+
+<div class="product" onclick="addProduct('Sugar 2kg',250)">
+<span>Sugar 2kg</span>
+<span>KES 250</span>
+</div>
+
+<div class="product" onclick="addProduct('Milk 500ml',70)">
+<span>Milk 500ml</span>
+<span>KES 70</span>
+</div>
+
+<div class="product" onclick="addProduct('Bread',60)">
+<span>Bread</span>
+<span>KES 60</span>
+</div>
+
+<div class="product" onclick="addProduct('Cooking Oil',350)">
+<span>Cooking Oil</span>
+<span>KES 350</span>
+</div>
+
+<div class="product" onclick="addProduct('Rice 1kg',180)">
+<span>Rice 1kg</span>
+<span>KES 180</span>
+</div>
+
+<div class="product" onclick="addProduct('Soap',120)">
+<span>Soap</span>
+<span>KES 120</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+document.getElementById("date").innerHTML =
+new Date().toLocaleString();
+
+let total = 0;
+
+function addProduct(name,price){
+
+const row =
+`<tr>
+<td>${name}</td>
+<td>KES ${price}</td>
+</tr>`;
+
+document.getElementById("cart").innerHTML += row;
+
+total += price;
+
+document.getElementById("total").innerHTML = total;
+}
+
+function clearCart(){
+document.getElementById("cart").innerHTML="";
+total=0;
+document.getElementById("total").innerHTML="0";
+}
+</script>
+
+</body>
+  </html>
