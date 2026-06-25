@@ -374,3 +374,191 @@ color:white;
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise Dashboard</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.sidebar{
+position:fixed;
+left:0;
+top:0;
+width:250px;
+height:100%;
+background:#1f2937;
+}
+
+.sidebar h2{
+color:white;
+text-align:center;
+padding:20px;
+background:#0b7a0b;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+padding:15px 20px;
+}
+
+.sidebar a:hover{
+background:#374151;
+}
+
+.main{
+margin-left:250px;
+padding:20px;
+}
+
+.header{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+.card h3{
+color:#666;
+margin-bottom:10px;
+}
+
+.card p{
+font-size:28px;
+font-weight:bold;
+color:#0b7a0b;
+}
+
+table{
+width:100%;
+margin-top:20px;
+background:white;
+border-collapse:collapse;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#0b7a0b;
+color:white;
+}
+
+@media(max-width:768px){
+.sidebar{
+width:100%;
+height:auto;
+position:relative;
+}
+
+.main{
+margin-left:0;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="sidebar">
+
+<h2>Mubarak POS</h2>
+
+<a href="index.html">Dashboard</a>
+<a href="pos.html">POS</a>
+<a href="inventory.html">Inventory</a>
+<a href="customers.html">Customers</a>
+<a href="savings.html">Savings</a>
+<a href="reports.html">Reports</a>
+<a href="users.html">Users</a>
+<a href="settings.html">Settings</a>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+<h1>Welcome to Mubarak Enterprise</h1>
+<p>Business Management & POS Dashboard</p>
+</div>
+
+<div class="cards">
+
+<div class="card">
+<h3>Today's Sales</h3>
+<p>KES 0</p>
+</div>
+
+<div class="card">
+<h3>Products</h3>
+<p>0</p>
+</div>
+
+<div class="card">
+<h3>Customers</h3>
+<p>0</p>
+</div>
+
+<div class="card">
+<h3>Total Savings</h3>
+<p>KES 0</p>
+</div>
+
+</div>
+
+<table>
+<tr>
+<th>Date</th>
+<th>Activity</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Today</td>
+<td>System Installed</td>
+<td>Active</td>
+</tr>
+
+<tr>
+<td>Today</td>
+<td>POS Created</td>
+<td>Active</td>
+</tr>
+
+</table>
+
+</div>
+
+</body>
+</html>
