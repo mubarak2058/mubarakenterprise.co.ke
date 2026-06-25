@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - Customers</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+h2{
+margin-bottom:15px;
+color:#0b7a0b;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+background:#0b7a0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#086108;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table th,
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+table th{
+background:#0b7a0b;
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.number{
+font-size:30px;
+font-weight:bold;
+color:#0b7a0b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Mubarak Enterprise Customer Management</h1>
+</div>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat-card">
+<h3>Total Customers</h3>
+<div class="number" id="customerCount">0</div>
+</div>
+
+<div class="stat-card">
+<h3>Active Customers</h3>
+<div class="number" id="activeCount">0</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Add Customer</h2>
+
+<input type="text" id="customerName" placeholder="Customer Name">
+
+<input type="text" id="customerPhone" placeholder="Phone Number">
+
+<input type="email" id="customerEmail" placeholder="Email Address">
+
+<button onclick="addCustomer()">Add Customer</button>
+</div>
+
+<div class="card">
+<h2>Customer List</h2>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Phone</th>
+<th>Email</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="customerTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let customers = 0;
+
+function addCustomer(){
+
+const name = document.getElementById("customerName").value;
+const phone = document.getElementById("customerPhone").value;
+const email = document.getElementById("customerEmail").value;
+
+if(name === "" || phone === ""){
+alert("Please enter customer details");
+return;
+}
+
+const row = `
+<tr>
+<td>${name}</td>
+<td>${phone}</td>
+<td>${email}</td>
+<td>Active</td>
+</tr>
+`;
+
+document.getElementById("customerTable").innerHTML += row;
+
+customers++;
+
+document.getElementById("customerCount").innerText = customers;
+document.getElementById("activeCount").innerText = customers;
+
+document.getElementById("customerName").value = "";
+document.getElementById("customerPhone").value = "";
+document.getElementById("customerEmail").value = "";
+
+}
+
+</script>
+
+</body>
+                                              </html>
