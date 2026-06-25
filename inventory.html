@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - Inventory</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+h2{
+color:#0b7a0b;
+margin-bottom:15px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+background:#0b7a0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#086108;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table th,
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+table th{
+background:#0b7a0b;
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.number{
+font-size:30px;
+font-weight:bold;
+color:#0b7a0b;
+}
+
+.low-stock{
+color:red;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Mubarak Enterprise Inventory Management</h1>
+</div>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat-card">
+<h3>Total Products</h3>
+<div class="number" id="productCount">0</div>
+</div>
+
+<div class="stat-card">
+<h3>Total Stock</h3>
+<div class="number" id="stockCount">0</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Add Product</h2>
+
+<input type="text" id="productName" placeholder="Product Name">
+
+<input type="number" id="productQty" placeholder="Quantity">
+
+<input type="number" id="productPrice" placeholder="Selling Price">
+
+<button onclick="addProduct()">Add Product</button>
+</div>
+
+<div class="card">
+<h2>Inventory List</h2>
+
+<table>
+<thead>
+<tr>
+<th>Product</th>
+<th>Quantity</th>
+<th>Price (KES)</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="inventoryTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let totalProducts = 0;
+let totalStock = 0;
+
+function addProduct(){
+
+const name =
+document.getElementById("productName").value;
+
+const qty =
+parseInt(document.getElementById("productQty").value);
+
+const price =
+document.getElementById("productPrice").value;
+
+if(name === "" || isNaN(qty) || price === ""){
+alert("Please fill all fields");
+return;
+}
+
+let status = qty < 10
+? "<span class='low-stock'>Low Stock</span>"
+: "Available";
+
+const row = `
+<tr>
+<td>${name}</td>
+<td>${qty}</td>
+<td>${price}</td>
+<td>${status}</td>
+</tr>
+`;
+
+document.getElementById("inventoryTable").innerHTML += row;
+
+totalProducts++;
+totalStock += qty;
+
+document.getElementById("productCount").innerText = totalProducts;
+document.getElementById("stockCount").innerText = totalStock;
+
+document.getElementById("productName").value = "";
+document.getElementById("productQty").value = "";
+document.getElementById("productPrice").value = "";
+}
+
+</script>
+
+</body>
+  </html>
