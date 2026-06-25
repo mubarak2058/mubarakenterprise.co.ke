@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - Settings</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1000px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+h2{
+color:#0b7a0b;
+margin-bottom:15px;
+}
+
+label{
+display:block;
+margin-top:10px;
+font-weight:bold;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin-top:5px;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+background:#0b7a0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+margin-top:15px;
+}
+
+button:hover{
+background:#086108;
+}
+
+.success{
+display:none;
+margin-top:15px;
+padding:10px;
+background:#d4edda;
+color:#155724;
+border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>POS System Settings</h1>
+</div>
+
+<div class="container">
+
+<div class="card">
+<h2>Business Information</h2>
+
+<label>Business Name</label>
+<input type="text" id="businessName" value="Mubarak Enterprise">
+
+<label>Business Phone</label>
+<input type="text" id="businessPhone" placeholder="+254">
+
+<label>Business Email</label>
+<input type="email" id="businessEmail" placeholder="info@example.com">
+
+<button onclick="saveSettings()">Save Business Settings</button>
+</div>
+
+<div class="card">
+<h2>System Preferences</h2>
+
+<label>Currency</label>
+<select id="currency">
+<option>KES - Kenyan Shilling</option>
+<option>USD - US Dollar</option>
+<option>EUR - Euro</option>
+</select>
+
+<label>Language</label>
+<select id="language">
+<option>English</option>
+<option>Swahili</option>
+<option>Arabic</option>
+</select>
+
+<button onclick="saveSettings()">Save Preferences</button>
+</div>
+
+<div class="card">
+<h2>Security</h2>
+
+<label>Admin Username</label>
+<input type="text" id="adminUser" placeholder="admin">
+
+<label>New Password</label>
+<input type="password" id="adminPassword">
+
+<button onclick="saveSettings()">Update Security</button>
+</div>
+
+<div class="success" id="successMsg">
+Settings saved successfully.
+</div>
+
+</div>
+
+<script>
+function saveSettings(){
+document.getElementById("successMsg").style.display="block";
+
+localStorage.setItem(
+"businessName",
+document.getElementById("businessName").value
+);
+
+setTimeout(()=>{
+document.getElementById("successMsg").style.display="none";
+},3000);
+}
+</script>
+
+</body>
+  </html>
