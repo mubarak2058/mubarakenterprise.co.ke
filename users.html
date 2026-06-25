@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - User Management</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+.header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1200px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+margin-bottom:20px;
+}
+
+h2{
+color:#0b7a0b;
+margin-bottom:15px;
+}
+
+input, select{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+padding:12px 18px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+color:white;
+margin-top:10px;
+}
+
+.add-btn{
+background:#0b7a0b;
+}
+
+.delete-btn{
+background:#dc2626;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+table th,
+table td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+table th{
+background:#0b7a0b;
+color:white;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:15px;
+margin-bottom:20px;
+}
+
+.stat-card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+.number{
+font-size:30px;
+font-weight:bold;
+color:#0b7a0b;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<h1>Mubarak Enterprise User Management</h1>
+</div>
+
+<div class="container">
+
+<div class="stats">
+<div class="stat-card">
+<h3>Total Users</h3>
+<div class="number" id="userCount">0</div>
+</div>
+
+<div class="stat-card">
+<h3>Active Accounts</h3>
+<div class="number" id="activeCount">0</div>
+</div>
+</div>
+
+<div class="card">
+
+<h2>Add New User</h2>
+
+<input type="text" id="username" placeholder="Full Name">
+
+<input type="email" id="email" placeholder="Email Address">
+
+<select id="role">
+<option value="Admin">Admin</option>
+<option value="Cashier">Cashier</option>
+<option value="Manager">Manager</option>
+</select>
+
+<button class="add-btn" onclick="addUser()">
+Add User
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>System Users</h2>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+</thead>
+
+<tbody id="userTable">
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let totalUsers = 0;
+
+function addUser(){
+
+const username =
+document.getElementById("username").value;
+
+const email =
+document.getElementById("email").value;
+
+const role =
+document.getElementById("role").value;
+
+if(username === "" || email === ""){
+alert("Please fill all fields");
+return;
+}
+
+const table =
+document.getElementById("userTable");
+
+const row =
+table.insertRow();
+
+row.innerHTML = `
+<td>${username}</td>
+<td>${email}</td>
+<td>${role}</td>
+<td>Active</td>
+<td>
+<button class="delete-btn"
+onclick="deleteUser(this)">
+Delete
+</button>
+</td>
+`;
+
+totalUsers++;
+
+document.getElementById("userCount").innerText =
+totalUsers;
+
+document.getElementById("activeCount").innerText =
+totalUsers;
+
+document.getElementById("username").value = "";
+document.getElementById("email").value = "";
+}
+
+function deleteUser(btn){
+
+btn.parentElement.parentElement.remove();
+
+totalUsers--;
+
+document.getElementById("userCount").innerText =
+totalUsers;
+
+document.getElementById("activeCount").innerText =
+totalUsers;
+}
+
+</script>
+
+</body>
+  </html>
