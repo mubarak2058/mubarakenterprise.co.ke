@@ -456,3 +456,31 @@ import {
   addDoc,
   getDocs
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+async function loadProducts(){
+
+    const container = document.getElementById("products");
+
+    container.innerHTML = "";
+
+    const snapshot = await getDocs(collection(db,"inventory"));
+
+    snapshot.forEach((doc)=>{
+
+        const p = doc.data();
+
+        container.innerHTML += `
+        <div class="product"
+             onclick="addProduct('${p.name}',${p.price})">
+
+            <span>${p.name}</span>
+
+            <span>KES ${p.price}</span>
+
+        </div>
+        `;
+
+    });
+
+}
+
+loadProducts();
