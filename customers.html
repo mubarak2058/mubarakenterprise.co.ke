@@ -200,3 +200,85 @@ document.getElementById("customerEmail").value = "";
 
 </body>
 </html>
+<script type="module">
+
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+let customers = 0;
+
+window.addCustomer = async function () {
+
+    const name = document.getElementById("customerName").value;
+    const phone = document.getElementById("customerPhone").value;
+    const email = document.getElementById("customerEmail").value;
+
+    if(name==="" || phone===""){
+        alert("Please enter customer details");
+        return;
+    }
+
+    try{
+
+        await addDoc(collection(db,"customers"),{
+            name:name,
+            phone:phone,
+            email:email,
+            status:"Active",
+            created:new Date()
+        });
+
+        alert("Customer saved successfully!");
+
+        document.getElementById("customerName").value="";
+        document.getElementById("customerPhone").value="";
+        document.getElementById("customerEmail").value="";
+
+        loadCustomers();
+
+    }catch(err){
+        alert(err.message);
+    }
+
+}
+
+async function loadCustomers(){
+
+    const table=document.getElementById("customerTable");
+
+    table.innerHTML="";
+
+    customers=0;
+
+    const snapshot=await getDocs(collection(db,"customers"));
+
+    snapshot.forEach((doc)=>{
+
+        const data=doc.data();
+
+        table.innerHTML+=`
+        <tr>
+            <td>${data.name}</td>
+            <td>${data.phone}</td>
+            <td>${data.email||""}</td>
+            <td>${data.status}</td>
+        </tr>
+        `;
+
+        customers++;
+
+    });
+
+    document.getElementById("customerCount").innerText=customers;
+    document.getElementById("activeCount").innerText=customers;
+
+}
+
+loadCustomers();
+
+</script>
