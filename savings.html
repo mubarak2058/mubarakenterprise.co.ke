@@ -349,3 +349,68 @@ document.getElementById("amount").value="";
 
 </body>
 </html>
+<script type="module">
+import { db } from "./firebase.js";
+
+import {
+  collection,
+  addDoc,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+const history = document.getElementById("history");
+const totalSavings = document.getElementById("totalSavings");
+
+async function loadSavings() {
+
+    history.innerHTML = "";
+    let total = 0;
+
+    const snapshot = await getDocs(collection(db, "savings"));
+
+    snapshot.forEach((doc) => {
+
+        const data = doc.data();
+
+        total += Number(data.amount);
+
+        history.innerHTML += `
+        <tr>
+            <td>${data.member}</td>
+            <td>KES ${Number(data.amount).toLocaleString()}</td>
+            <td>${data.date}</td>
+        </tr>
+        `;
+
+    });
+
+    totalSavings.innerHTML = "KES " + total.toLocaleString();
+
+}
+
+window.saveMoney = async function () {
+
+    const member = document.getElementById("member").value.trim();
+    const amount = document.getElementById("amount").value;
+
+    if (!member || !amount) {
+        alert("Enter valid details");
+        return;
+    }
+
+    await addDoc(collection(db, "savings"), {
+        member: member,
+        amount: Number(amount),
+        date: new Date().toLocaleDateString()
+    });
+
+    document.getElementById("member").value = "";
+    document.getElementById("amount").value = "";
+
+    loadSavings();
+
+};
+
+loadSavings();
+
+</script>
