@@ -336,3 +336,111 @@ document.getElementById("total").innerHTML="0";
 
 </body>
   </html>
+<script type="module">
+import { db } from "./firebase.js";
+import {
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+
+document.getElementById("date").innerHTML =
+new Date().toLocaleString();
+
+let cart = [];
+let total = 0;
+
+window.addProduct = function(name, price){
+
+    cart.push({
+        name: name,
+        price: price
+    });
+
+    renderCart();
+
+}
+
+function renderCart(){
+
+    const tbody = document.getElementById("cart");
+
+    tbody.innerHTML = "";
+
+    total = 0;
+
+    cart.forEach(item=>{
+
+        total += item.price;
+
+        tbody.innerHTML += `
+        <tr>
+            <td>${item.name}</td>
+            <td>KES ${item.price}</td>
+        </tr>
+        `;
+
+    });
+
+    document.getElementById("total").innerHTML =
+    total.toLocaleString();
+
+}
+
+window.clearCart = function(){
+
+    cart = [];
+
+    renderCart();
+
+}
+
+window.checkout = async function(){
+
+    if(cart.length===0){
+        alert("Cart is empty");
+        return;
+    }
+
+    await addDoc(collection(db,"sales"),{
+
+        items: cart,
+
+        total: total,
+
+        date: new Date().toLocaleString()
+
+    });
+
+    alert("Sale saved successfully.");
+
+    printReceipt();
+
+    clearCart();
+
+}
+
+function printReceipt(){
+
+    let receipt = "MUBARAK ENTERPRISE\n";
+    receipt += "-------------------------\n";
+
+    cart.forEach(item=>{
+
+        receipt += `${item.name}  KES ${item.price}\n`;
+
+    });
+
+    receipt += "-------------------------\n";
+    receipt += "TOTAL: KES "+total;
+
+    const w = window.open();
+
+    w.document.write("<pre>"+receipt+"</pre>");
+
+    w.print();
+
+}
+
+document.querySelector(".blue").onclick = checkout;
+
+</script>
