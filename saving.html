@@ -172,3 +172,180 @@ document.getElementById("amount").value = "";
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mubarak Enterprise - Savings</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#f4f6f9;
+}
+
+header{
+background:#0b7a0b;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+.container{
+max-width:1100px;
+margin:20px auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ddd;
+border-radius:5px;
+}
+
+button{
+background:#0b7a0b;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:5px;
+cursor:pointer;
+}
+
+button:hover{
+background:#086108;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+th,td{
+padding:12px;
+border:1px solid #ddd;
+text-align:left;
+}
+
+th{
+background:#0b7a0b;
+color:white;
+}
+
+.total{
+font-size:28px;
+font-weight:bold;
+color:#0b7a0b;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Mubarak Enterprise Savings</h1>
+</header>
+
+<div class="container">
+
+<div class="card">
+<h2>Total Savings</h2>
+<div class="total" id="totalSavings">KES 0</div>
+</div>
+
+<div class="card">
+<h2>Add Savings</h2>
+
+<input type="text" id="member" placeholder="Customer Name">
+
+<input type="number" id="amount" placeholder="Amount">
+
+<button onclick="saveMoney()">Save</button>
+
+</div>
+
+<div class="card">
+
+<h2>Savings History</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Customer</th>
+
+<th>Amount</th>
+
+<th>Date</th>
+
+</tr>
+
+</thead>
+
+<tbody id="history">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+let total = 0;
+
+function saveMoney(){
+
+const member=document.getElementById("member").value;
+const amount=parseFloat(document.getElementById("amount").value);
+
+if(member==="" || isNaN(amount)){
+alert("Enter valid details");
+return;
+}
+
+total += amount;
+
+document.getElementById("totalSavings").innerHTML="KES "+total.toLocaleString();
+
+const today=new Date().toLocaleDateString();
+
+document.getElementById("history").innerHTML += `
+<tr>
+<td>${member}</td>
+<td>KES ${amount.toLocaleString()}</td>
+<td>${today}</td>
+</tr>
+`;
+
+document.getElementById("member").value="";
+document.getElementById("amount").value="";
+
+}
+
+</script>
+
+</body>
+</html>
